@@ -1,6 +1,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #ifndef MATRIX_SIZE
 #   define MATRIX_SIZE 10

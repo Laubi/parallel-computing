@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <limits.h>
 
 
 #ifndef ARR_LEN
@@ -51,7 +52,7 @@ void bucketSort() {
 
     int pos = 0;
     for(int i = 0; i < BUCKETS; i++){
-        bubblesort(B[i], B_INDEX[i]);
+        insertSort(B[i], B_INDEX[i]);
 
         for(int k =0; k < B_INDEX[k]; k++) {
             A[pos++] = B[i][k];
