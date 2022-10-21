@@ -3,10 +3,13 @@
 #include <time.h>
 
 #ifndef ARR_LEN
-#define ARR_LEN 1000
+#   define ARR_LEN 1000
 #endif
 
-#define MAX 100
+#ifndef MAX
+#   define MAX 100
+#endif
+
 
 int A[ARR_LEN];
 int O[ARR_LEN];
