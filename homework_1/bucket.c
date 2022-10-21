@@ -15,14 +15,12 @@ int A[ARR_LEN];
 int B[BUCKETS][ARR_LEN] = {0};
 int B_INDEX[BUCKETS] = {0};
 
-void bubblesort(int * a, int size) {
-    for(int  n= size; n > 1; --n) {
-        for (int i =0; i < n-1; ++i){
-            if(a[i] > a[i+1]) {
-                int t = a[i];
-                a[i] = a[i+1];
-                a[i+1] = t;
-            }
+void insertSort(int *a, int size) {
+    for(int i = 1; i < size; i++) {
+        for(int j = i; j> 0 && a[j-1] > a[j]; j--) {
+            int t = a[j];
+            a[j] = a[j-1];
+            a[j-1] = t;
         }
     }
 }
