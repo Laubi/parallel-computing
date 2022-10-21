@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #ifndef ARR_SIZE
-#   define ARR_SIZE 100000
+#   define ARR_SIZE 1000
 #endif
 
 int ARR[ARR_SIZE];
@@ -15,13 +15,13 @@ void generateRandoms() {
     }
 }
 
-void bubblesort() {
-    for(int  n= ARR_SIZE; n > 1; --n) {
+void bubblesort(int * a, int size) {
+    for(int  n= size; n > 1; --n) {
         for (int i =0; i < n-1; ++i){
-            if(ARR[i] > ARR[i+1]) {
-                int t = ARR[i];
-                ARR[i] = ARR[i+1];
-                ARR[i+1] = t;
+            if(a[i] > a[i+1]) {
+                int t = a[i];
+                a[i] = a[i+1];
+                a[i+1] = t;
             }
         }
     }
@@ -29,5 +29,7 @@ void bubblesort() {
 
 int main() {
     generateRandoms();
-    bubblesort();
+    bubblesort(ARR, ARR_SIZE);
+
+    return 0;
 }
