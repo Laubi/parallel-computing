@@ -6,10 +6,12 @@
 
 
 #ifndef ARR_LEN
-# define ARR_LEN 100
+#   define ARR_LEN 100
 #endif
 
-#define BUCKETS 10
+#ifndef BUCKETS
+#   define BUCKETS 10
+#endif
 
 int A[ARR_LEN];
 
@@ -43,7 +45,7 @@ void bucketSort() {
     }
 
     for(int i = 0; i < ARR_LEN; i++) {
-        int bucket_index = (int) floor((double) (A[i]) / max * BUCKETS) % 10;
+        int bucket_index = (int) floor((double) (A[i]) / max * BUCKETS) % BUCKETS;
         int inner_bucket_index = B_INDEX[bucket_index];
 
         B[bucket_index][inner_bucket_index] = A[i];
