@@ -1,17 +1,16 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdint.h>
 
-#define MATRIX_SIZE 1000
+#ifndef MATRIX_SIZE
+#   define MATRIX_SIZE 10000
+#endif
 
 int32_t a[MATRIX_SIZE][MATRIX_SIZE];
 int32_t b[MATRIX_SIZE][MATRIX_SIZE];
 int64_t c[MATRIX_SIZE][MATRIX_SIZE];
 
-
 void initializeWithRandoms();
-
 void multiply();
 
 int main() {
