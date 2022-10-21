@@ -5,3 +5,4 @@ set (CMAKE_CXX_STANDARD 11)
 
 add_executable(matrix matrix.c)
 add_executable(bubblesort bubblesort.c)
+add_executable(gauss gauss.c)
