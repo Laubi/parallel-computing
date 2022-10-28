@@ -1,6 +1,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include "utils.h"
 
 #ifndef ARR_SIZE
 #   define ARR_SIZE 1000
@@ -27,9 +28,14 @@ void bubblesort(int * a, int size) {
     }
 }
 
+void bubbleSort() {
+    bubblesort(ARR, ARR_SIZE);
+}
+
 int main() {
     generateRandoms();
-    bubblesort(ARR, ARR_SIZE);
+
+    measure_and_print(bubbleSort);
 
     return 0;
 }

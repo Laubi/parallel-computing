@@ -1,5 +1,8 @@
 #include <memory.h>
 #include <math.h>
+#include <stdint.h>
+
+#include "utils.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -8,25 +11,25 @@
 # define ARR_LEN 1000
 #endif
 
-int A[ARR_LEN];
+uint8_t A[ARR_LEN];
 
 void sieve() {
-    for( int i = 2; i < sqrt(ARR_LEN); i++) {
+    size_t upper_bound = (size_t) sqrt(ARR_LEN);
+
+    for (size_t i = 2; i < upper_bound; i++) {
         if (A[i] == TRUE) {
 
-            for(int j = 0; i*i + j*i < ARR_LEN; j++) {
-                A[i*i + j*i] = FALSE;
+            for (int j = 0; i * i + j * i < ARR_LEN; j++) {
+                A[i * i + j * i] = FALSE;
             }
         }
     }
 }
 
 int main() {
-    for(int i = 0; i < ARR_LEN; i++) {
-        A[i] = TRUE;
-    }
+    memset(A, TRUE, ARR_LEN);
 
-    sieve();
+    measure_and_print(sieve);
 
     return 0;
 }

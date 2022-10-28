@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <limits.h>
+#include "utils.h"
 
 #ifndef MATRIX_SIZE
 #   define MATRIX_SIZE 10
@@ -64,7 +65,7 @@ void gauss() {
 int main() {
     initializeWithRandoms();
 
-    gauss();
+    measure_and_print(gauss);
 
     return 0;
 }

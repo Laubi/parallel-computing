@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdint.h>
+#include "utils.h"
 
 #ifndef MATRIX_SIZE
 #   define MATRIX_SIZE 10000
@@ -19,7 +20,7 @@ int main() {
 
     initializeWithRandoms();
 
-    multiply();
+    measure_and_print(multiply);
 
     return 0;
 }

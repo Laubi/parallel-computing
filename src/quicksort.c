@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include "utils.h"
 
 #ifndef ARR_LEN
 # define ARR_LEN 1000
@@ -51,13 +52,15 @@ void quicksort(int*a, int lo, int hi) {
     quicksort(a, p+1, hi);
 }
 
-
+void qs(){
+    quicksort(A, 0, ARR_LEN-1);
+}
 
 
 int main() {
     generateRandoms();
 
-    quicksort(A, 0, ARR_LEN-1);
+    measure_and_print(qs);
 
     return 0;
 }

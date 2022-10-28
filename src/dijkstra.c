@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <limits.h>
+#include "utils.h"
 
 #ifndef MATRIX_SIZE
 #   define MATRIX_SIZE 20000
@@ -65,7 +66,7 @@ void dijkstra(){
 int main() {
     initializeWithRandoms();
 
-    dijkstra();
+    measure_and_print(dijkstra);
 
     return 0;
 }

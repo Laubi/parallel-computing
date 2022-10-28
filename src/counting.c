@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include "utils.h"
 
 #ifndef ARR_LEN
 #   define ARR_LEN 1000
@@ -42,7 +43,7 @@ void countingSort(){
 int main() {
     generateRandoms();
 
-    countingSort();
+    measure_and_print(countingSort);
 
 
     return 0;

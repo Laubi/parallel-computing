@@ -3,6 +3,7 @@
 #include <time.h>
 #include <math.h>
 #include <limits.h>
+#include "utils.h"
 
 
 #ifndef ARR_LEN
@@ -64,8 +65,8 @@ void bucketSort() {
 
 int main() {
     generateRandoms();
-    bucketSort();
 
+    measure_and_print(bucketSort);
 
     return 0;
 }
