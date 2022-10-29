@@ -2,56 +2,57 @@
 
 import subprocess
 from pathlib import Path
+import csv
 
+# sort algos
+sort_len_sizes = [1_000, 2_500, 5_000, 10_000, 25_000, 50_000, 100_000, 250_000, 500_000, 1_000_000]
 
-class Variation:
-    def __init__(self, key: str, value):
-        self.key = key
-        self.value = value
+# matrix algos
+matrix_sizes = [10, 100, 250, 500, 1_000, 2_500, 5_000, 10_000, 25_000]
 
-    def __str__(self):
-        return "-D{}={}".format(self.key, self.value)
+# sieve
+sieve_sizes = [10_000, 100_000, 250_000, 500_000, 1_000_000, 10_000_000, 100_000_000]
 
-
-class Program:
-    source: str
-    variations: tuple[str, list[int]]
-
-    def __init__(self, source: str, variations: tuple[str, list[int]]):
-        self.source = source
-        self.variations = variations
-
-    def configurations(self) -> list[Variation]:
-        variations: list[Variation] = []
-
-        key = self.variations[0]
-
-        for val in self.variations[1]:
-            variations.append(Variation(key, val))
-
-        return variations
-
-
-configs: dict[str, Program] = {
-    "quicksort": Program(
-        "quicksort.c",
-        ("ARR_LEN", [1000, 10000, 100000]),
-    ),
-}
+configs = [
+    ("bubblesort", "bubblesort.c", ("ARR_LEN", sort_len_sizes)),
+    ("bucket", "bucket.c", ("ARR_LEN", sort_len_sizes)),
+    ("counting", "counting.c", ("ARR_LEN", sort_len_sizes)),
+    ("insert", "insert.c", ("ARR_LEN", sort_len_sizes)),
+    ("quicksort", "quicksort.c", ("ARR_LEN", sort_len_sizes)),
+    ("selection", "selection.c", ("ARR_LEN", sort_len_sizes)),
+    ("sieve", "sieve.c", ("ARR_LEN", sort_len_sizes)),
+    ("matrix", "matrix.c", ("MATRIX_SIZE", matrix_sizes)),
+    ("dijkstra", "dijkstra.c", ("MATRIX_SIZE", matrix_sizes)),
+    ("gauss", "gauss.c", ("MATRIX_SIZE", matrix_sizes))
+]
 
 Path("out").mkdir(exist_ok=True)
+with open("./out/times.cvs", "w+") as f:
+    writer = csv.writer(f)
+    writer.writerow(["Program", "Size", "Time"])
 
-for k, v in configs.items():
-    for variation in v.configurations():
+    for config in configs:
+        k = config[0]
+        s = config[1]
+        p = config[2]
 
-        source_file = "src/{}".format(v.source)
-        program_name = "out/{}".format(k)
-        params = ["gcc", "-lm", "-pg", str(variation), source_file, "-o", program_name]
+        variations = map(lambda v: (p[0], v), p[1])
 
-        print(params)
+        for variation in variations:
 
-        subprocess.run(args=params)
-        subprocess.run([program_name])
-        subprocess.run(["gprof", program_name, "gmon.out", "-b", "--no-graph"])
+            print("Starting {}: {}".format(k, variation[1]))
 
+            source_file = "src/{}".format(s)
+            program_name = "out/{}".format(k)
+
+            preprocessor_var = "-D{}={}".format(variation[0], variation[1])
+
+            out = subprocess.run(["gcc", "-mcmodel=large", preprocessor_var, source_file, "-lm", "-o", program_name], stdout=subprocess.PIPE).stdout.decode("utf-8")
+            print(out)
+
+
+            time = subprocess.run([program_name], stdout=subprocess.PIPE).stdout.decode("utf-8")
+            print(time)
+
+            writer.writerow([k, variation[1], time])
 
