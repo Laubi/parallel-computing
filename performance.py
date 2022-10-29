@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import os
 import subprocess
 from pathlib import Path
 import csv
@@ -50,8 +50,10 @@ with open("./out/times.cvs", "w+") as f:
             out = subprocess.run(["gcc", "-mcmodel=large", preprocessor_var, source_file, "-lm", "-o", program_name], stdout=subprocess.PIPE).stdout.decode("utf-8")
             print(out)
 
-
-            time = subprocess.run([program_name], stdout=subprocess.PIPE).stdout.decode("utf-8")
+            if os.environ.get("USE_SRUN") is None:
+                time = subprocess.run([program_name], stdout=subprocess.PIPE).stdout.decode("utf-8")
+            else:
+                time = subprocess.run(["srun", program_name], stdout=subprocess.PIPE).stdout.decode("utf-8")
             print(time)
 
             writer.writerow([k, variation[1], time])
