@@ -15,7 +15,7 @@ TIME_T current_timestamp_in_ms() {
 void print_duration(TIME_T start, TIME_T end) {
     TIME_T diff = end - start;
 
-    printf("%lld", diff);
+    printf("%lld\n", diff);
 }
 
 void measure_and_print(void (*fun)()) {
