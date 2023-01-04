@@ -1,7 +1,11 @@
 
 
+SORT_ARR_SIZE ?=10000
+
 bubblesort:
-	gcc -DARR_SIZE=10000 src/bubblesort.c -o out/bubblesort -lm -mcmodel=large && ./out/bubblesort
+	@echo "Sorting $(SORT_ARR_SIZE) elements"
+	gcc -DARR_SIZE=$(SORT_ARR_SIZE) src/bubblesort.c -o out/bubblesort -lm -mcmodel=large && ./out/bubblesort || echo "Not in correct order"
 
 bubblesort_omp:
-	gcc -DARR_SIZE=10000 src/bubblesort.c -o out/bubblesort -fopenmp -lm -mcmodel=large && ./out/bubblesort
+	@echo "Sorting $(SORT_ARR_SIZE) elements"
+	gcc -DARR_SIZE=$(SORT_ARR_SIZE) src/bubblesort.c -o out/bubblesort -fopenmp -lm -mcmodel=large && ./out/bubblesort || echo "Not in correct order"
