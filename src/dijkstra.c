@@ -2,20 +2,18 @@
 #include <time.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdbool.h>
 #include "utils.h"
 
 #ifndef SIZE
 #   define SIZE 20000
 #endif
 
-#define TRUE 1
-#define FALSE 0
-
 int cost[SIZE][SIZE];
 
 int par[SIZE];
 int dist[SIZE] = {[0 ... SIZE - 1 ]=INT_MAX};
-int visited[SIZE] ={0} ;
+bool visited[SIZE] ={false} ;
 
 void initializeWithRandoms() {
     srand(time(0));
@@ -51,7 +49,7 @@ void dijkstra(){
 
     for(int g = 0 ; g < SIZE - 1 ; g++){
         int u = getMin( dist ,  visited )  ;
-        visited[u] = TRUE ;
+        visited[u] = true;
 
         for(int v =0 ; v < SIZE ; v++){
             if(!visited[v] && (dist[u]+cost[u][v]) <  dist[v] && cost[u][v]!=9999)
