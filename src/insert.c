@@ -9,13 +9,6 @@
 
 int A[SIZE];
 
-void generateRandoms() {
-    srand(time(0));
-    for(int i = 0; i < SIZE; i++) {
-        A[i] = rand();
-    }
-}
-
 void insertSort() {
     for(int i = 1; i < SIZE; i++) {
         for(int j = i; j> 0 && A[j-1] > A[j]; j--) {
@@ -28,7 +21,7 @@ void insertSort() {
 
 
 int main() {
-    generateRandoms();
+    fill_with_randoms(A, SIZE);
 
     measure_and_print(insertSort);
 

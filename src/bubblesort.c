@@ -10,13 +10,6 @@
 
 int ARR[SIZE];
 
-void generateRandoms() {
-    srand(time(0));
-    for (int i = 0; i < SIZE; i++) {
-        ARR[i] = rand();
-    }
-}
-
 void bubblesort(int *a, int size) {
 #pragma omp parallel for schedule(static) default(none) private(size) shared(a)
     for (int n = size; n > 1; --n) {
@@ -52,7 +45,7 @@ int main() {
     printf("Sorting %d elements\n", SIZE);
 #endif
 
-    generateRandoms();
+    fill_with_randoms(ARR, SIZE);
 
     measure_and_print(bubbleSort);
 

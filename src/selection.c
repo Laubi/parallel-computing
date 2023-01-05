@@ -9,13 +9,6 @@
 
 int A[SIZE];
 
-void generateRandoms() {
-    srand(time(0));
-    for(int i = 0; i < SIZE; i++) {
-        A[i] = rand();
-    }
-}
-
 void selectionSort() {
 
     for(int i = 0; i < SIZE - 1; i++) {
@@ -35,7 +28,7 @@ void selectionSort() {
 
 
 int main() {
-    generateRandoms();
+    fill_with_randoms(A, SIZE);
 
     measure_and_print(selectionSort);
 

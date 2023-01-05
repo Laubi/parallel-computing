@@ -11,27 +11,16 @@ int32_t a[SIZE][SIZE];
 int32_t b[SIZE][SIZE];
 int64_t c[SIZE][SIZE];
 
-void initializeWithRandoms();
 void multiply();
 
 int main() {
-    srand(time(0));
 
-
-    initializeWithRandoms();
+    fill_with_randoms(a, SIZE * SIZE);
+    fill_with_randoms(b, SIZE * SIZE);
 
     measure_and_print(multiply);
 
     return 0;
-}
-
-void initializeWithRandoms() {
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            a[i][j] = rand();
-            b[i][j] = rand();
-        }
-    }
 }
 
 void multiply() {

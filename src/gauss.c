@@ -19,16 +19,6 @@ void swap_rows(int h, int max) {
     }
 }
 
-void initializeWithRandoms() {
-    srand(time(0));
-
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            a[i][j] = rand();
-        }
-    }
-}
-
 void gauss() {
     int h = 0;
     int k = 0;
@@ -63,6 +53,8 @@ void gauss() {
 }
 
 int main() {
+    fill_with_randoms(a, SIZE * SIZE);
+
     initializeWithRandoms();
 
     measure_and_print(gauss);

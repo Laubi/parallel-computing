@@ -11,14 +11,6 @@
 
 int ARR[SIZE];
 
-
-void generateRandoms() {
-    srand(time(0));
-    for (int i = 0; i < SIZE; i++) {
-        ARR[i] = rand();
-    }
-}
-
 void brick() {
     bool sorted = false;
 
@@ -44,7 +36,7 @@ void brick() {
 }
 
 int main() {
-    generateRandoms();
+    fill_with_randoms(ARR, SIZE);
 
     measure_and_print(brick);
 

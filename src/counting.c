@@ -18,13 +18,6 @@ int O[SIZE];
 
 int COUNT[MAX + 1] = {0};
 
-void generateRandoms() {
-    srand(time(0));
-    for(int i = 0; i < SIZE; i++) {
-        A[i] = rand() % MAX;
-    }
-}
-
 void countingSort(){
     for(int i = 0; i < SIZE; i++) {
         COUNT[A[i]]++;
@@ -42,7 +35,7 @@ void countingSort(){
 }
 
 int main() {
-    generateRandoms();
+    fill_with_randoms_max(A, SIZE, MAX);
 
     measure_and_print(countingSort);
 

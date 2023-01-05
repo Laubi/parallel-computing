@@ -29,13 +29,6 @@ void insertSort(int *a, int size) {
     }
 }
 
-void generateRandoms() {
-    srand(time(0));
-    for(int i = 0; i < SIZE; i++) {
-        A[i] = rand() % 100;
-    }
-}
-
 void bucketSort() {
     int max = INT_MIN;
 
@@ -69,7 +62,7 @@ void bucketSort() {
 }
 
 int main() {
-    generateRandoms();
+    fill_with_randoms_max(A, SIZE, 100);
 
     measure_and_print(bucketSort);
 

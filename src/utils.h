@@ -45,3 +45,15 @@ void swap(int *a, int *b) {
     *a = *b;
     *b = t;
 }
+
+
+void fill_with_randoms_max(int *arr, size_t len, int max) {
+    srand(time(0));
+    for (int i = 0; i < len; i++) {
+        arr[i] = rand() % max;
+    }
+}
+
+void fill_with_randoms(int *arr, size_t len) {
+    fill_with_randoms_max(arr, len, RAND_MAX);
+}
