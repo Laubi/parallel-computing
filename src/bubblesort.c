@@ -18,8 +18,7 @@ void generateRandoms() {
 }
 
 void bubblesort(int *a, int size) {
-
-#pragma omp parallel for schedule(static) num_threads(12) default(none) private(size) shared(a)
+#pragma omp parallel for schedule(static) default(none) private(size) shared(a)
     for (int n = size; n > 1; --n) {
         for (int i = 0; i < n - 1; ++i) {
             if (a[i] > a[i + 1]) {
@@ -40,19 +39,30 @@ int validate_order() {
 
     for (int i = 1; i < ARR_SIZE; i++) {
         if (min > ARR[i]) {
-            return 1;
+            return 0;
         }
         min = ARR[i];
     }
 
-    return 0;
+    return 1;
 }
 
 int main() {
+#ifndef TIMING
+    printf("Sorting %d elements\n", ARR_SIZE);
+#endif
+
     generateRandoms();
 
     measure_and_print(bubbleSort);
 
-    return validate_order();
+#ifndef TIMING
+    if(validate_order()) {
+        puts("Correct order");
+    } else {
+        puts("Wrong order");
+    }
+#endif
 }
+
 
