@@ -3,15 +3,15 @@
 #include <time.h>
 #include "utils.h"
 
-#ifndef ARR_LEN
-# define ARR_LEN 1000
+#ifndef SIZE
+# define SIZE 1000
 #endif
 
-int A[ARR_LEN];
+int A[SIZE];
 
 void generateRandoms() {
     srand(time(0));
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         A[i] = rand();
     }
 }
@@ -48,7 +48,7 @@ void quicksort(int*a, int lo, int hi) {
 }
 
 void qs(){
-    quicksort(A, 0, ARR_LEN-1);
+    quicksort(A, 0, SIZE - 1);
 }
 
 

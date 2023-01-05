@@ -3,11 +3,9 @@ BUCKETS ?=10
 
 define compile_and_run
 	gcc 								\
-		-DARR_SIZE=$(SIZE)							\
-		-DARR_LEN=$(SIZE)							\
-		-DMATRIX_SIZE=$(SIZE)							\
-		-DBUCKETS=$(BUCKETS)							\
-		$(1) 						\
+		-DSIZE=$(SIZE)					\
+		-DBUCKETS=$(BUCKETS)			\
+		$(1) 						    \
 		-o out/$(2) 					\
 		-O0								\
 		$(3)  							\

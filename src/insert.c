@@ -3,21 +3,21 @@
 #include <time.h>
 #include "utils.h"
 
-#ifndef ARR_LEN
-# define ARR_LEN 1000
+#ifndef SIZE
+# define SIZE 1000
 #endif
 
-int A[ARR_LEN];
+int A[SIZE];
 
 void generateRandoms() {
     srand(time(0));
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         A[i] = rand();
     }
 }
 
 void insertSort() {
-    for(int i = 1; i < ARR_LEN; i++) {
+    for(int i = 1; i < SIZE; i++) {
         for(int j = i; j> 0 && A[j-1] > A[j]; j--) {
             int t = A[j];
             A[j] = A[j-1];

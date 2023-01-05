@@ -4,8 +4,8 @@
 #include <memory.h>
 #include "utils.h"
 
-#ifndef ARR_LEN
-#   define ARR_LEN 1000
+#ifndef SIZE
+#   define SIZE 1000
 #endif
 
 #ifndef MAX
@@ -13,20 +13,20 @@
 #endif
 
 
-int A[ARR_LEN];
-int O[ARR_LEN];
+int A[SIZE];
+int O[SIZE];
 
 int COUNT[MAX + 1] = {0};
 
 void generateRandoms() {
     srand(time(0));
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         A[i] = rand() % MAX;
     }
 }
 
 void countingSort(){
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         COUNT[A[i]]++;
     }
 
@@ -34,7 +34,7 @@ void countingSort(){
         COUNT[i] += COUNT[i-1];
     }
 
-    for(int i = ARR_LEN -1; i >=0; i--) {
+    for(int i = SIZE - 1; i >= 0; i--) {
         O[--COUNT[A[i]]] = A[i];
     }
 
@@ -46,7 +46,7 @@ int main() {
 
     measure_and_print(countingSort);
 
-    ensure_arr_ordered(A, ARR_LEN);
+    ensure_arr_ordered(A, SIZE);
 
     return EXIT_SUCCESS;
 }

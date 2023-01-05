@@ -6,17 +6,17 @@
 #include "utils.h"
 
 
-#ifndef ARR_LEN
-#   define ARR_LEN 20000
+#ifndef SIZE
+#   define SIZE 20000
 #endif
 
 #ifndef BUCKETS
 #   define BUCKETS 10
 #endif
 
-int A[ARR_LEN];
+int A[SIZE];
 
-int B[BUCKETS][ARR_LEN] = {0};
+int B[BUCKETS][SIZE] = {0};
 int B_INDEX[BUCKETS] = {0};
 
 void insertSort(int *a, int size) {
@@ -31,7 +31,7 @@ void insertSort(int *a, int size) {
 
 void generateRandoms() {
     srand(time(0));
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         A[i] = rand() % 100;
     }
 }
@@ -39,13 +39,13 @@ void generateRandoms() {
 void bucketSort() {
     int max = INT_MIN;
 
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         if (max < A[i]) {
             max = A[i];
         }
     }
 
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         int bucket_index = (BUCKETS * A[i]) / max;
         bucket_index = bucket_index +( bucket_index >= BUCKETS ?  -1 : 0);
 
@@ -73,7 +73,7 @@ int main() {
 
     measure_and_print(bucketSort);
 
-    ensure_arr_ordered(A, ARR_LEN);
+    ensure_arr_ordered(A, SIZE);
 
     return 0;
 }

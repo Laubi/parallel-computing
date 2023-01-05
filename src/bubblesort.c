@@ -4,15 +4,15 @@
 #include <limits.h>
 #include "utils.h"
 
-#ifndef ARR_SIZE
-#   define ARR_SIZE 1000
+#ifndef SIZE
+#   define SIZE 1000
 #endif
 
-int ARR[ARR_SIZE];
+int ARR[SIZE];
 
 void generateRandoms() {
     srand(time(0));
-    for (int i = 0; i < ARR_SIZE; i++) {
+    for (int i = 0; i < SIZE; i++) {
         ARR[i] = rand();
     }
 }
@@ -31,13 +31,13 @@ void bubblesort(int *a, int size) {
 }
 
 void bubbleSort() {
-    bubblesort(ARR, ARR_SIZE);
+    bubblesort(ARR, SIZE);
 }
 
 int validate_order() {
     int min = INT_MIN;
 
-    for (int i = 1; i < ARR_SIZE; i++) {
+    for (int i = 1; i < SIZE; i++) {
         if (min > ARR[i]) {
             return 0;
         }
@@ -49,7 +49,7 @@ int validate_order() {
 
 int main() {
 #ifndef TIMING
-    printf("Sorting %d elements\n", ARR_SIZE);
+    printf("Sorting %d elements\n", SIZE);
 #endif
 
     generateRandoms();
@@ -57,7 +57,7 @@ int main() {
     measure_and_print(bubbleSort);
 
 
-    ensure_arr_ordered(ARR, ARR_SIZE);
+    ensure_arr_ordered(ARR, SIZE);
 #ifndef TIMING
     if(validate_order()) {
         puts("Correct order");

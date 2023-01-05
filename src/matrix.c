@@ -3,13 +3,13 @@
 #include <stdint.h>
 #include "utils.h"
 
-#ifndef MATRIX_SIZE
-#   define MATRIX_SIZE 10000
+#ifndef SIZE
+#   define SIZE 10000
 #endif
 
-int32_t a[MATRIX_SIZE][MATRIX_SIZE];
-int32_t b[MATRIX_SIZE][MATRIX_SIZE];
-int64_t c[MATRIX_SIZE][MATRIX_SIZE];
+int32_t a[SIZE][SIZE];
+int32_t b[SIZE][SIZE];
+int64_t c[SIZE][SIZE];
 
 void initializeWithRandoms();
 void multiply();
@@ -26,8 +26,8 @@ int main() {
 }
 
 void initializeWithRandoms() {
-    for (int i = 0; i < MATRIX_SIZE; i++) {
-        for (int j = 0; j < MATRIX_SIZE; j++) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
             a[i][j] = rand();
             b[i][j] = rand();
         }
@@ -37,10 +37,10 @@ void initializeWithRandoms() {
 void multiply() {
 #pragma omp parallel
 #pragma omp for schedule(static)
-    for (int i = 0; i < MATRIX_SIZE; i++) {
-        for (int j = 0; j < MATRIX_SIZE; j++) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
             int sum = 0;
-            for (int k = 0; k < MATRIX_SIZE; k++) {
+            for (int k = 0; k < SIZE; k++) {
                 sum += a[i][k] * b[k][j];
             }
 

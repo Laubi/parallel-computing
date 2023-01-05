@@ -3,25 +3,25 @@
 #include <time.h>
 #include "utils.h"
 
-#ifndef ARR_LEN
-# define ARR_LEN 1000
+#ifndef SIZE
+# define SIZE 1000
 #endif
 
-int A[ARR_LEN];
+int A[SIZE];
 
 void generateRandoms() {
     srand(time(0));
-    for(int i = 0; i < ARR_LEN; i++) {
+    for(int i = 0; i < SIZE; i++) {
         A[i] = rand();
     }
 }
 
 void selectionSort() {
 
-    for(int i = 0; i < ARR_LEN-1; i++) {
+    for(int i = 0; i < SIZE - 1; i++) {
         int jMin = i;
 
-        for(int j = i+1; j < ARR_LEN; j++) {
+        for(int j = i+1; j < SIZE; j++) {
             if (A[j] < A[jMin]) {
                 jMin = j;
             }
@@ -39,7 +39,7 @@ int main() {
 
     measure_and_print(selectionSort);
 
-    ensure_arr_ordered(A, ARR_LEN);
+    ensure_arr_ordered(A, SIZE);
 
     return 0;
 }
