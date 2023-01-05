@@ -15,8 +15,8 @@ void multiply();
 
 int main() {
 
-    fill_with_randoms(a, SIZE * SIZE);
-    fill_with_randoms(b, SIZE * SIZE);
+    fill_with_randoms((int*)a, SIZE * SIZE);
+    fill_with_randoms((int*)b, SIZE * SIZE);
 
     measure_and_print(multiply);
 
@@ -24,8 +24,7 @@ int main() {
 }
 
 void multiply() {
-#pragma omp parallel
-#pragma omp for schedule(static)
+#pragma omp parallel for schedule(static)
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             int sum = 0;
