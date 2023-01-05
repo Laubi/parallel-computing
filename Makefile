@@ -1,11 +1,26 @@
+SIZE ?=1000
 
+define compile_and_run
+	gcc 								\
+		$(2) 							\
+		src/$(1).c 						\
+		-o out/$(1) 					\
+		-O0								\
+		$(3) -lm -mcmodel=large 		\
 
-SORT_ARR_SIZE ?=10000
+	./out/$(1)
+	@echo
+endef
+
 
 bubblesort:
-	@echo "Sorting $(SORT_ARR_SIZE) elements"
-	gcc -DARR_SIZE=$(SORT_ARR_SIZE) src/bubblesort.c -o out/bubblesort -lm -mcmodel=large && ./out/bubblesort || echo "Not in correct order"
+	$(call compile_and_run,bubblesort,-DARR_SIZE=$(SIZE))
 
 bubblesort_omp:
-	@echo "Sorting $(SORT_ARR_SIZE) elements"
-	gcc -DARR_SIZE=$(SORT_ARR_SIZE) src/bubblesort.c -o out/bubblesort -fopenmp -lm -mcmodel=large && ./out/bubblesort || echo "Not in correct order"
+	$(call compile_and_run,bubblesort,-DARR_SIZE=$(SIZE),-fopenmp)
+
+matrix:
+	$(call compile_and_run,matrix,-DMATRIX_SIZE=$(SIZE))
+
+matrix_omp:
+	$(call compile_and_run,matrix,-DMATRIX_SIZE=$(SIZE),-fopenmp)
