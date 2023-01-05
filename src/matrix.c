@@ -28,14 +28,15 @@ int main() {
 void initializeWithRandoms() {
     for (int i = 0; i < MATRIX_SIZE; i++) {
         for (int j = 0; j < MATRIX_SIZE; j++) {
-            a[i][j] = rand() % 10;
-            b[i][j] = rand() % 10;
+            a[i][j] = rand();
+            b[i][j] = rand();
         }
     }
 }
 
 void multiply() {
-
+#pragma omp parallel
+#pragma omp for schedule(static)
     for (int i = 0; i < MATRIX_SIZE; i++) {
         for (int j = 0; j < MATRIX_SIZE; j++) {
             int sum = 0;
