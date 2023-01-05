@@ -1,6 +1,6 @@
 #include <sys/time.h>
 #include <stdio.h>
-
+#include <limits.h>
 #define TIME_T long long
 
 
@@ -26,4 +26,22 @@ void measure_and_print(void (*fun)()) {
     TIME_T end = current_timestamp_in_ms();
 
     print_duration(start, end);
+}
+
+void ensure_arr_ordered(int const * const arr, int size) {
+    int prev = INT_MIN;
+
+    for (int i = 0; i < size; ++i) {
+        if (prev > arr[i]) {
+            exit(1);
+        }
+        prev = arr[i];
+    }
+}
+
+
+void swap(int *a, int *b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
 }

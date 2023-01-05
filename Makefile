@@ -1,26 +1,25 @@
 SIZE ?=1000
+BUCKETS ?=10
 
 define compile_and_run
 	gcc 								\
-		$(2) 							\
-		src/$(1).c 						\
-		-o out/$(1) 					\
+		-DARR_SIZE=$(SIZE)							\
+		-DARR_LEN=$(SIZE)							\
+		-DMATRIX_SIZE=$(SIZE)							\
+		-DBUCKETS=$(BUCKETS)							\
+		$(1) 						\
+		-o out/$(2) 					\
 		-O0								\
-		$(3) -lm -mcmodel=large 		\
+		$(3)  							\
+		-mcmodel=large 					\
+		-lm								\
 
-	./out/$(1)
-	@echo
+	./out/$(2)
 endef
 
+%: src/%.c
+	$(call compile_and_run,$<,$@)
 
-bubblesort:
-	$(call compile_and_run,bubblesort,-DARR_SIZE=$(SIZE))
+%_omp: src/%.c
+	$(call compile_and_run,$<,$@,-fopenmp)
 
-bubblesort_omp:
-	$(call compile_and_run,bubblesort,-DARR_SIZE=$(SIZE),-fopenmp)
-
-matrix:
-	$(call compile_and_run,matrix,-DMATRIX_SIZE=$(SIZE))
-
-matrix_omp:
-	$(call compile_and_run,matrix,-DMATRIX_SIZE=$(SIZE),-fopenmp)

@@ -56,6 +56,8 @@ int main() {
 
     measure_and_print(bubbleSort);
 
+
+    ensure_arr_ordered(ARR, ARR_SIZE);
 #ifndef TIMING
     if(validate_order()) {
         puts("Correct order");

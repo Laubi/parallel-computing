@@ -16,11 +16,6 @@ void generateRandoms() {
     }
 }
 
-void swap(int *a, int *b) {
-    int t = *a;
-    *a = *b;
-    *b = t;
-}
 
 int partition(int *a, int lo, int hi) {
     int pivot = a[hi];

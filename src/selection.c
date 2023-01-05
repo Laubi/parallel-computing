@@ -20,6 +20,7 @@ void selectionSort() {
 
     for(int i = 0; i < ARR_LEN-1; i++) {
         int jMin = i;
+
         for(int j = i+1; j < ARR_LEN; j++) {
             if (A[j] < A[jMin]) {
                 jMin = j;
@@ -27,9 +28,7 @@ void selectionSort() {
         }
 
         if (jMin != i) {
-            int t = A[i];
-            A[i] = A[jMin];
-            A[jMin] = t;
+            swap(A+i, A + jMin);
         }
     }
 }
@@ -39,6 +38,8 @@ int main() {
     generateRandoms();
 
     measure_and_print(selectionSort);
+
+    ensure_arr_ordered(A, ARR_LEN);
 
     return 0;
 }

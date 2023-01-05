@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <memory.h>
 #include "utils.h"
 
 #ifndef ARR_LEN
@@ -30,14 +31,14 @@ void countingSort(){
     }
 
     for(int i = 1; i < MAX; i++) {
-        COUNT[i] = COUNT[i] + COUNT[i-1];
+        COUNT[i] += COUNT[i-1];
     }
 
     for(int i = ARR_LEN -1; i >=0; i--) {
-        int j = A[i];
-        COUNT[j]--;
-        O[COUNT[j]] = A[i];
+        O[--COUNT[A[i]]] = A[i];
     }
+
+    memcpy(A, O, sizeof(A));
 }
 
 int main() {
@@ -45,6 +46,7 @@ int main() {
 
     measure_and_print(countingSort);
 
+    ensure_arr_ordered(A, ARR_LEN);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
