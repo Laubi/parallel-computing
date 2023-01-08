@@ -1,13 +1,11 @@
 
-#include <stdlib.h>
-#include <time.h>
 #include "utils.h"
 
 #ifndef SIZE
 # define SIZE 1000
 #endif
 
-int A[SIZE];
+int ARR[SIZE];
 
 int partition(int *a, int lo, int hi) {
     int pivot = a[hi];
@@ -40,12 +38,12 @@ void quicksort(int *a, int lo, int hi) {
 }
 
 void qs() {
-    quicksort(A, 0, SIZE - 1);
+    quicksort(ARR, 0, SIZE - 1);
 }
 
 
 int main() {
-    fill_with_randoms(A, SIZE);
+    fill_with_randoms(ARR, SIZE);
 
     measure_and_print(qs);
 

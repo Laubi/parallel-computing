@@ -1,6 +1,5 @@
 
 #include <stdlib.h>
-#include <time.h>
 #include <memory.h>
 #include "utils.h"
 
@@ -13,14 +12,14 @@
 #endif
 
 
-int A[SIZE];
+int ARR[SIZE];
 int O[SIZE];
 
 int COUNT[MAX + 1] = {0};
 
 void countingSort(){
     for(int i = 0; i < SIZE; i++) {
-        COUNT[A[i]]++;
+        COUNT[ARR[i]]++;
     }
 
     for(int i = 1; i < MAX; i++) {
@@ -28,18 +27,18 @@ void countingSort(){
     }
 
     for(int i = SIZE - 1; i >= 0; i--) {
-        O[--COUNT[A[i]]] = A[i];
+        O[--COUNT[ARR[i]]] = ARR[i];
     }
 
-    memcpy(A, O, sizeof(A));
+    memcpy(ARR, O, sizeof(ARR));
 }
 
 int main() {
-    fill_with_randoms_max(A, SIZE, MAX);
+    fill_with_randoms_max(ARR, SIZE, MAX);
 
     measure_and_print(countingSort);
 
-    ensure_arr_ordered(A, SIZE);
+    ensure_arr_ordered(ARR, SIZE);
 
     return EXIT_SUCCESS;
 }

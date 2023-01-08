@@ -1,13 +1,11 @@
 
-#include <stdlib.h>
-#include <time.h>
 #include "utils.h"
 
 #ifndef SIZE
 # define SIZE 1000
 #endif
 
-int A[SIZE];
+int ARR[SIZE];
 
 void selectionSort() {
 
@@ -15,24 +13,24 @@ void selectionSort() {
         int jMin = i;
 
         for(int j = i+1; j < SIZE; j++) {
-            if (A[j] < A[jMin]) {
+            if (ARR[j] < ARR[jMin]) {
                 jMin = j;
             }
         }
 
         if (jMin != i) {
-            swap(A+i, A + jMin);
+            swap(ARR + i, ARR + jMin);
         }
     }
 }
 
 
 int main() {
-    fill_with_randoms(A, SIZE);
+    fill_with_randoms(ARR, SIZE);
 
     measure_and_print(selectionSort);
 
-    ensure_arr_ordered(A, SIZE);
+    ensure_arr_ordered(ARR, SIZE);
 
     return 0;
 }

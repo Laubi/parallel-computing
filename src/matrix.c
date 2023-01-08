@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <time.h>
 #include <stdint.h>
 #include "utils.h"
 
@@ -14,7 +12,6 @@ int64_t c[SIZE][SIZE];
 void multiply();
 
 int main() {
-
     fill_with_randoms((int*)a, SIZE * SIZE);
     fill_with_randoms((int*)b, SIZE * SIZE);
 

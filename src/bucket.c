@@ -1,7 +1,4 @@
 
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
 #include <limits.h>
 #include "utils.h"
 
@@ -14,7 +11,7 @@
 #   define BUCKETS 10
 #endif
 
-int A[SIZE];
+int ARR[SIZE];
 
 int B[BUCKETS][SIZE] = {0};
 int B_INDEX[BUCKETS] = {0};
@@ -33,16 +30,16 @@ void bucketSort() {
     int max = INT_MIN;
 
     for(int i = 0; i < SIZE; i++) {
-        if (max < A[i]) {
-            max = A[i];
+        if (max < ARR[i]) {
+            max = ARR[i];
         }
     }
 
     for(int i = 0; i < SIZE; i++) {
-        int bucket_index = (BUCKETS * A[i]) / max;
+        int bucket_index = (BUCKETS * ARR[i]) / max;
         bucket_index = bucket_index +( bucket_index >= BUCKETS ?  -1 : 0);
 
-        B[bucket_index][B_INDEX[bucket_index]] = A[i];
+        B[bucket_index][B_INDEX[bucket_index]] = ARR[i];
         B_INDEX[bucket_index]++;
     }
 
@@ -56,17 +53,17 @@ void bucketSort() {
         }
 
         for(int k =0; k < B_INDEX[i]; k++) {
-            A[off+k] = B[i][k];
+            ARR[off + k] = B[i][k];
         }
     }
 }
 
 int main() {
-    fill_with_randoms_max(A, SIZE, 100);
+    fill_with_randoms_max(ARR, SIZE, 100);
 
     measure_and_print(bucketSort);
 
-    ensure_arr_ordered(A, SIZE);
+    ensure_arr_ordered(ARR, SIZE);
 
     return 0;
 }

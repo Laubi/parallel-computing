@@ -55,8 +55,6 @@ void gauss() {
 int main() {
     fill_with_randoms(a, SIZE * SIZE);
 
-    initializeWithRandoms();
-
     measure_and_print(gauss);
 
     return 0;
