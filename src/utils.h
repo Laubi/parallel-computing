@@ -1,11 +1,18 @@
+#ifndef PS_UTILS
+#define PS_UTILS
+
 #include <sys/time.h>
 #include <stdio.h>
 #include <limits.h>
+#include <stdlib.h>
+#include <time.h>
+
 #define TIME_T long long
 
 
 TIME_T current_timestamp_in_ms() {
     struct timeval te;
+
     gettimeofday(&te, NULL);
     TIME_T milliseconds = te.tv_sec * 1000LL + te.tv_usec / 1000;
 
@@ -57,3 +64,5 @@ void fill_with_randoms_max(int *arr, size_t len, int max) {
 void fill_with_randoms(int *arr, size_t len) {
     fill_with_randoms_max(arr, len, RAND_MAX);
 }
+
+#endif
