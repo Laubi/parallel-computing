@@ -18,6 +18,7 @@ int O[SIZE];
 int COUNT[MAX + 1] = {0};
 
 void countingSort(){
+#pragma omp parallel for schedule(static) reduction(+:count[:])
     for(int i = 0; i < SIZE; i++) {
         COUNT[ARR[i]]++;
     }
