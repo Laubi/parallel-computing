@@ -1,59 +1,69 @@
 
-#include <time.h>
-#include <stdlib.h>
-#include <limits.h>
+#include <math.h>
 #include "utils.h"
 
 #ifndef SIZE
-#   define SIZE 10
+#   define SIZE 3
 #endif
 
-int a[SIZE][SIZE];
+int a[SIZE][SIZE] = {
+        {
+                2,  1,  -1
+        },
+        {
+                -1, -3, 1
+        },
+        {
+                1,  8,  -2
+        }
+};
 
 
-void swap_rows(int h, int max) {
-    for(int i = 0; i < SIZE; i++) {
-        int t = a[h][i];
-        a[h][i] = a[max][i];
-        a[max][i] = t;
+void swap_rows(int r1, int r2) {
+    for (int i = 0; i < SIZE; i++) {
+        swap(&a[r1][i], &a[r2][i]);
     }
 }
 
+// https://en.wikipedia.org/wiki/Gaussian_elimination#Pseudocode
 void gauss() {
     int h = 0;
     int k = 0;
+    const int sqrt_n = sqrt(SIZE);
 
-    while(h < SIZE && k < SIZE) {
-        int i_max = INT_MIN;
+    while (h < SIZE && k < SIZE) {
 
-        for(int i = h; i < SIZE; i++) {
-            if (i_max < a[i][k]) {
+        // Find the k-th pivot:
+        int i_max = h;
+        for (int i = h; i < SIZE; i++) {
+            if (a[i_max][k] < a[i][k]) {
                 i_max = i;
             }
         }
 
-        if (a[i_max][k] ==0) {
-            k ++;
+        if (a[i_max][k] == 0) {
+            k++;
             continue;
         }
 
         swap_rows(h, i_max);
 
-        for(int i = h+1; i < SIZE; i++) {
+        for (int i = h + 1; i < SIZE; i++) {
             double f = (double) a[i][k] / a[h][k];
 
             a[i][k] = 0;
-            for(int j = k+1; j < SIZE; j++) {
+            for (int j = k + 1; j < SIZE; j++) {
                 a[i][j] = a[i][j] - a[h][j] * f;
             }
         }
+
         h++;
         k++;
     }
 }
 
 int main() {
-    fill_with_randoms(a, SIZE * SIZE);
+    //fill_with_randoms(a, SIZE * SIZE);
 
     measure_and_print(gauss);
 
