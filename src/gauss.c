@@ -3,25 +3,19 @@
 #include "utils.h"
 
 #ifndef SIZE
-#   define SIZE 3
+#   define M 3 //rows
+#   define N 4 //cols
+#else
+#   define M SIZE
+#   define N SIZE
 #endif
 
-int a[SIZE][SIZE] = {
-        {
-                2,  1,  -1
-        },
-        {
-                -1, -3, 1
-        },
-        {
-                1,  8,  -2
-        }
-};
+double MATRIX[M][N];
 
 
 void swap_rows(int r1, int r2) {
-    for (int i = 0; i < SIZE; i++) {
-        swap(&a[r1][i], &a[r2][i]);
+    for (int i = 0; i < N; i++) {
+        dswap(&MATRIX[r1][i], &MATRIX[r2][i]);
     }
 }
 
@@ -29,31 +23,34 @@ void swap_rows(int r1, int r2) {
 void gauss() {
     int h = 0;
     int k = 0;
-    const int sqrt_n = sqrt(SIZE);
 
-    while (h < SIZE && k < SIZE) {
+    while (h < M && k < N) {
 
         // Find the k-th pivot:
         int i_max = h;
-        for (int i = h; i < SIZE; i++) {
-            if (a[i_max][k] < a[i][k]) {
+        for (int i = h; i < M; i++) {
+            if (fabs(MATRIX[i_max][k]) < fabs(MATRIX[i][k])) {
                 i_max = i;
             }
         }
 
-        if (a[i_max][k] == 0) {
+        if (MATRIX[i_max][k] == 0) {
             k++;
             continue;
         }
 
         swap_rows(h, i_max);
 
-        for (int i = h + 1; i < SIZE; i++) {
-            double f = (double) a[i][k] / a[h][k];
+        #pragma omp parallel
+        {
+            #pragma omp for schedule(static)
+            for (int i = h + 1; i < M; i++) {
+                double f = (double) MATRIX[i][k] / MATRIX[h][k];
 
-            a[i][k] = 0;
-            for (int j = k + 1; j < SIZE; j++) {
-                a[i][j] = a[i][j] - a[h][j] * f;
+                MATRIX[i][k] = 0;
+                for (int j = k + 1; j < N; j++) {
+                    MATRIX[i][j] -= MATRIX[h][j] * f;
+                }
             }
         }
 
@@ -63,7 +60,7 @@ void gauss() {
 }
 
 int main() {
-    //fill_with_randoms(a, SIZE * SIZE);
+    dfill_with_randoms((double*)MATRIX, M * N);
 
     measure_and_print(gauss);
 

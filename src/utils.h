@@ -52,6 +52,11 @@ void swap(int *a, int *b) {
     *a = *b;
     *b = t;
 }
+void dswap(double *a, double *b) {
+    double t = *a;
+    *a = *b;
+    *b = t;
+}
 
 
 void fill_with_randoms_max(int *arr, size_t len, int max) {
@@ -63,6 +68,13 @@ void fill_with_randoms_max(int *arr, size_t len, int max) {
 
 void fill_with_randoms(int *arr, size_t len) {
     fill_with_randoms_max(arr, len, RAND_MAX);
+}
+
+void dfill_with_randoms(double *arr, size_t len) {
+    srand(time(0));
+    for (int i = 0; i < len; i++) {
+        arr[i] = rand() % RAND_MAX;
+    }
 }
 
 #endif
