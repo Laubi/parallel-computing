@@ -1,68 +1,70 @@
 
-#include <time.h>
-#include <stdlib.h>
 #include <limits.h>
 #include <stdbool.h>
 #include "utils.h"
 
 #ifndef SIZE
-#   define SIZE 20000
+#   define SIZE 200
 #endif
 
-int cost[SIZE][SIZE];
+int GRAPH[SIZE][SIZE];
+int DIST[SIZE];
+bool VISITED[SIZE];
 
-int par[SIZE];
-int dist[SIZE] = {[0 ... SIZE - 1 ]=INT_MAX};
-bool visited[SIZE] ={false} ;
 
-void initializeWithRandoms() {
+void init_random_graph() {
     srand(time(0));
 
     for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            if(rand() % 5  == 0) {
-                cost[i][j] = rand() % 100; // 0 or 1
-            } else {
-                cost[i][j] = 9999;
+        for (int j = i; j < SIZE; j++) {
+            if (i - j == 0 || rand()%5 == 0) { // no loops to self or random no edge
+                GRAPH[j][i] = GRAPH[i][j] = 0;
+            }  else {
+                GRAPH[j][i] = GRAPH[i][j] = rand() % 100; // 0 or 1
             }
         }
     }
 }
 
+int minDistance(int dist[], bool prev[]){
+    int min = INT_MAX;
+    int min_index;
 
-int getMin(int dist[] , int visited[]){
-    int key = 0 ;
-    int min = INT_MAX ;
-    for(int i=0; i < SIZE ; i++){
-        if(!visited[i] && dist[i]<min){
-            min = dist[i] ;
-            key = i ;
+    for (int v = 0; v < SIZE; v++){
+        if (!prev[v] && dist[v] <= min){
+            min = dist[v];
+            min_index = v;
         }
     }
-    return key ;
+
+    return min_index;
 }
 
+// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 void dijkstra(){
+    for (int i = 0; i < SIZE; i++){
+        DIST[i] = INT_MAX;
+        VISITED[i] = false;
+    }
 
-    dist[0] =0 ;
-    par[0] =0 ;
+    DIST[0] = 0;
 
-    for(int g = 0 ; g < SIZE - 1 ; g++){
-        int u = getMin( dist ,  visited )  ;
-        visited[u] = true;
+    for (int count = 0; count < SIZE - 1; count++) {
 
-        for(int v =0 ; v < SIZE ; v++){
-            if(!visited[v] && (dist[u]+cost[u][v]) <  dist[v] && cost[u][v]!=9999)
-            {
-                par[v] = u ;
-                dist[v] = dist[u] + cost[u][v] ;
+        int u = minDistance(DIST, VISITED);
+
+        VISITED[u] = true;
+
+        for (int v = 0; v < SIZE; v++){
+            if (!VISITED[v] && GRAPH[u][v] && DIST[u] != INT_MAX && DIST[u] + GRAPH[u][v] < DIST[v]){
+                DIST[v] += GRAPH[u][v];
             }
         }
     }
 }
 
 int main() {
-    initializeWithRandoms();
+    init_random_graph();
 
     measure_and_print(dijkstra);
 
