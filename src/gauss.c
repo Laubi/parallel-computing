@@ -41,18 +41,17 @@ void gauss() {
 
         swap_rows(h, i_max);
 
-        #pragma omp parallel
-        {
-            #pragma omp for schedule(static)
-            for (int i = h + 1; i < M; i++) {
-                double f = (double) MATRIX[i][k] / MATRIX[h][k];
 
-                MATRIX[i][k] = 0;
-                for (int j = k + 1; j < N; j++) {
-                    MATRIX[i][j] -= MATRIX[h][j] * f;
-                }
+        #pragma omp parallel for schedule(static) default(none) shared(MATRIX) firstprivate(h, k)
+        for (int i = h + 1; i < M; i++) {
+            double f = (double) MATRIX[i][k] / MATRIX[h][k];
+
+            MATRIX[i][k] = 0;
+            for (int j = k + 1; j < N; j++) {
+                MATRIX[i][j] -= MATRIX[h][j] * f;
             }
         }
+
 
         h++;
         k++;
