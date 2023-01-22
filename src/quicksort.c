@@ -6,7 +6,7 @@
 #endif
 
 #ifndef N
-# define N 8
+# define N 4
 #endif
 
 int ARR[SIZE];
