@@ -26,7 +26,7 @@ void init_random_graph() {
     }
 }
 
-int minDistance(int dist[], bool prev[]){
+int minDistance(int const dist[], bool const prev[]){
     int min = INT_MAX;
     int min_index;
 
@@ -55,6 +55,7 @@ void dijkstra(){
 
         VISITED[u] = true;
 
+#pragma omp parallel for schedule(static) default(none) shared(DIST, VISITED, GRAPH) firstprivate(u)
         for (int v = 0; v < SIZE; v++){
             if (!VISITED[v] && GRAPH[u][v] && DIST[u] != INT_MAX && DIST[u] + GRAPH[u][v] < DIST[v]){
                 DIST[v] += GRAPH[u][v];
