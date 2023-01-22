@@ -1,10 +1,12 @@
 SIZE ?=1000
 BUCKETS ?=10
+N ?=8
 
 define compile_and_run
 	gcc 								\
 		-DSIZE=$(SIZE)					\
 		-DBUCKETS=$(BUCKETS)			\
+		-DN=$(N)						\
 		$(1) 						    \
 		-o out/$(2) 					\
 		-O0								\
